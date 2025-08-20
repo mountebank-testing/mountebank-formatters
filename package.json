@@ -1,16 +1,16 @@
 {
-  "name": "mountebank-formatters",
+  "name": "@mbtest/mountebank-formatters",
   "version": "0.0.2",
   "author": "Brandon Byars <brandon.byars@gmail.com>",
   "description": "The default parsers and formatters for managing mountebank test data",
-  "homepage": "http://www.mbtest.org",
+  "homepage": "http://www.mbtest.dev",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bbyars/mountebank-formatters.git"
+    "url": "https://github.com/mountebank-testing/mountebank-formatters.git"
   },
   "bugs": {
-    "url": "https://github.com/bbyars/mountebank-formatters/issues",
+    "url": "https://github.com/mountebank-testing/mountebank-formatters/issues",
     "email": "brandon.byars@gmail.com"
   },
   "main": "./src/index.js",

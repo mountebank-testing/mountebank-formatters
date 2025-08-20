@@ -1,6 +1,6 @@
 # Formatters
 
-As of v2.4.0, [mountebank](https://github.com/bbyars/mountebank) supports custom formatters.
+As of v2.4.0, [mountebank](https://github.com/mountebank-testing/mountebank) supports custom formatters.
 
 A formatter consists of two functions:
 * `load`, which loads the `--configfile` used to start mountebank
