@@ -1,7 +1,76 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
+
+executors:
+  node-active:
+    docker:
+      - image: cimg/node:18.19.0
+
+jobs:
+  pr:
+    executor: node-active
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - run:
+          name: Lint & Test
+          command: npm test
+      - store_test_results:
+          path: testResults
+  build:
+    executor: node-active
+    steps:
+      - checkout
+      - run:
+          name: Validate versions
+          command: node -v && npm -v
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - run:
+          name: Lint & Test
+          command: npm test
+      - run:
+          name: Version
+          command: node tasks/version.js
+      - run:
+          name: Dist
+          command: node tasks/dist.js
+      - store_test_results:
+          path: testResults
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - tasks
+            - scripts
+  deploy:
+    executor: node-active
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Publish npm
+          command: scripts/publishNpm
+
 workflows:
-  node-tests:
+  version: 2
+  pr:
     jobs:
-      - node/test
+      - pr:
+          filters:
+            branches:
+              ignore: master
+  pipeline:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
