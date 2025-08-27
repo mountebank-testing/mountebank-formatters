@@ -53,6 +53,23 @@ jobs:
       - run:
           name: Publish npm
           command: scripts/publishNpm
+  release:
+    executor: node-active
+    environment:
+      - MB_RELEASE: true
+    steps:
+      - setup_remote_docker:
+          version: default
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - run:
+          name: Dist
+          command: node tasks/dist.js
+      - run:
+          name: Publish npm
+          command: scripts/publishNpm
 
 workflows:
   version: 2
@@ -74,3 +91,11 @@ workflows:
           filters:
             branches:
               only: master
+  release:
+      jobs:
+      - release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
