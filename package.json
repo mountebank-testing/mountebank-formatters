@@ -32,6 +32,6 @@
   },
   "files": ["src", "README.md", "LICENSE", "package.json", "package-lock.json"],
   "engines": {
-    "node": ">=10"
+    "node": ">=20"
   }
 }
