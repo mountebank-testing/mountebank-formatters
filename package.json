@@ -22,7 +22,7 @@
     "mountebank"
   ],
   "dependencies": {
-    "ejs": "2.7.4",
+    "ejs": "7.0.1",
     "fs-extra": "9.0.1"
   },
   "devDependencies": {
